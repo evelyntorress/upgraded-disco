@@ -29,8 +29,6 @@ app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname,'./public/notes.html'))
 );
 
-
-// first read the file and then send it in json
 // get route for /api/notes
 
 app.get('/api/notes', async (req, res) => {
