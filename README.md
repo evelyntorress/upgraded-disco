@@ -44,7 +44,6 @@ The following images show the web application's appearance and functionality:
 
 ![Note taker](./images/note-taker-2.jpeg)
 
+### Walkthrough Video:
 
-## Mock-Up
-
-![Link of the video](https://loom.com/share/2222333be6de4a3398be4cd2cd3751a5)
+Clicking [this link](https://loom.com/share/2222333be6de4a3398be4cd2cd3751a5) you will find the video with the demonstration of the app.
