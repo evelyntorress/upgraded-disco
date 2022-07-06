@@ -1,9 +1,14 @@
 // Dependencies
 const express = require('express');
 const path = require('path');
+const util =require('util');
 const fs = require('fs');
 const uuid = require('uuid');
 const notes = require("./db/db.json")
+
+const readFileAsync = util.promisify(fs.readFile);
+const writeFileAsync = util.promisify(fs.writeFile);
+
 // express handler
 const app = express();
 // setting up the server
@@ -21,19 +26,17 @@ app.use(express.urlencoded({ extended: true }));
 
 // to get notes and return notes.html 
 app.get('/notes', (req, res) =>
-  res.sendFile(path.join(__dirname,'./Develop/public/notes.html'))
+  res.sendFile(path.join(__dirname,'./public/notes.html'))
 );
 
+
+// first read the file and then send it in json
 // get route for /api/notes
-app.get('/api/notes', (req, res) => {
-  res.sendFile(path.join(__dirname, "/db/db.json"));
-});
 
-// to get notes and return notes.html 
-app.get('/api/notes', (req, res) =>
-  res.sendFile(path.join(__dirname, './Develop/public/notes.html'))
-);
-
+app.get('/api/notes', async (req, res) => {
+ const notes = await readFileAsync("./db/db.json","utf-8")
+  res.json(JSON.parse(notes)); 
+  });
 
 // Post function to add new notes to db.json
 app.post("/api/notes", (req,res) => {
@@ -55,33 +58,18 @@ app.delete("/api/notes/:id", (req,res) => {
 
 // Calls homepage
 app.get('/', (req, res) =>
-  res.sendFile(path.join(__dirname, './Develop/public/index.html'))
+  res.sendFile(path.join(__dirname, './public/index.html'))
 );
 
-// // GET * should return the index.html file.
+ // GET * should return the index.html file.
 
-// app.get('/index', (req, res) =>
-//   res.sendFile(path.join(__dirname, 'public/index.html'))
-// );
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname, 'public/index.html'))
+);
 
 
 // Listen for connections
 app.listen(PORT, () =>
   console.log(`Example app listening at http://localhost:${PORT}`)
 );
-
-
-
-
-// // this is to get a response of json
-
-// // GET /api/notes should read the db.json file and return all saved notes as JSON.
-
-// app.get('/api/notes', (req, res) => {
-//     res.json({
-//       term: 'api',
-//       description:
-//         'An application programming interface, is a computing interface that defines interactions between multiple software intermediaries',
-//     });
-//   });
 
