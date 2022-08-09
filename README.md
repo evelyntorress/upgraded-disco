@@ -1,4 +1,6 @@
-# 11 Express.js: Note Taker
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+# Express.js: Note Taker
 
 ## Description
 
